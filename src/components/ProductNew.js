@@ -9,7 +9,8 @@ class ProductNew extends React.Component{
        api_host: process.env.REACT_APP_API_HOST,
        product: { id: 0, lang: { en: '', ua: '', ru: ''}, image: '', nutrition: { calories: ''}},
        editMode: false,
-       suggestions: []
+       suggestions: [],
+       file: null
        // suggestions: [
        //     {image: 'http://4.bp.blogspot.com/-PB1VYJjSCQE/UREBbiEkphI/AAAAAAAAARM/a1tawzVrOA0/s1600/banana.jpeg'},
        //     {image: 'http://4.bp.blogspot.com/-PB1VYJjSCQE/UREBbiEkphI/AAAAAAAAARM/a1tawzVrOA0/s1600/banana.jpeg'},
@@ -34,7 +35,13 @@ class ProductNew extends React.Component{
        }
    }
 
+    fileChangedHandler = (event) => {
+        const file = event.target.files[0];
+        this.setState({file: file});
+    }
+
    onBlur(e){
+       return false; //FIXME
        const self = this;
 
        if(e.target.value.length < 2) return false;
@@ -216,8 +223,13 @@ class ProductNew extends React.Component{
                         <ImagePicker pickImageHandler={this.pickImageHandler.bind(this)} suggestions={this.state.suggestions} />
                         : ''
                     }
+                    <Label for="product_image_url">Image</Label>
+                    <Input type="input" onChange={this.change.bind(this)} name="remote_image_url" id="product_image_url" value={this.state.product.image}  />
+                </FormGroup>
+
+                <FormGroup row>
                     <Label for="product_image">Image</Label>
-                    <Input type="input" onChange={this.change.bind(this)} name="image" id="product_image" value={this.state.product.image} required  />
+                    <Input type="file" onChange={this.fileChangedHandler} name="image" id="product_image" />
                 </FormGroup>
 
 

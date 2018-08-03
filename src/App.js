@@ -123,6 +123,7 @@ class App extends Component {
 
         <Route path="/products" exact render={() => {
           return <ProductList
+              api_host = {this.state.api_host}
               progressPercent={this.state.progressPercent}
               totalAmount={this.state.totalAmount}
               currentAmount={this.state.currentAmount}

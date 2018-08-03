@@ -36,10 +36,11 @@ class ProductList extends React.Component{
                 { this.props.products.map(product => {
                     let lang_en = product.lang !== null && product.lang.en;
                     let calories = product.nutrition !== null && product.nutrition.calories;
+                    let image_url = product.image.hasOwnProperty('thumb') && product.image.thumb.url;
 
                     return (<tr key={product.id}>
                         <th scope="row">{product.id}</th>
-                        <td><img className="" height="50px" src={product.image} alt={product.image} /></td>
+                        <td><img className="" height="50px" src={this.props.api_host + image_url} alt={product.image} /></td>
                         <td>{lang_en}</td>
                         <td>{calories}</td>
                         <td><TimeAgo date={product.created_at} /></td>
